@@ -1,0 +1,714 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  Xcode-Snippets/Objective-C 学习 - zsy78191
+  
+
+  </title>
+  <link href="atom.xml" rel="alternate" title="zsy78191" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        <li id="menu_item_index"><a href="index.html">HOME</a></li>
+        <li id="menu_item_archives"><a href="archives.html">Archives</a></li>
+        <li id="menu_item_about"><a href="about.html">ABOUT</a></li>
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" action="http://google.com/search" method="get">
+    <input type="hidden" name="q" value="site:" />
+    <input tabindex="1" type="search" name="q"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; zsy78191</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+       
+       <li><a href="index.html">HOME</a></li>
+    <li><a href="archives.html">Archives</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="Note.html">Note</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+ <script type="text/javascript">
+  $(function(){
+    $('#menu_item_index').addClass('is_active');
+  });
+</script>
+<div class="row">
+  <div class="large-8 medium-8 columns">
+      <div class="markdown-body article-wrap">
+       <div class="article">
+          
+          <h1>Xcode-Snippets/Objective-C 学习</h1>
+     
+        <div class="read-more clearfix">
+          <span class="date">2015/12/1</span>
+
+          <span>posted in&nbsp;</span> 
+          
+              <span class="posted-in"><a href='Note.html'>Note</a></span>
+           
+         
+          <span class="comments">
+            
+
+            
+          </span>
+
+        </div>
+      </div><!-- article -->
+
+      <div class="article-content">
+      <h1 id="toc_0">前言</h1>
+
+<p><code>Xcode-Snippets</code>是github上的一堆开源代码。作者mattt分享了他的Xcode-Snippets(xcode代码片段)，今天我们来学习一下。</p>
+
+<h2 id="toc_1">片段</h2>
+
+<h3 id="toc_2">singleton.m</h3>
+
+<pre><code>+ (instancetype)shared&lt;#name#&gt; {
+    static &lt;#class#&gt; *_shared&lt;#name#&gt; = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&amp;onceToken, ^{
+        _shared&lt;#name#&gt; = &lt;#initializer#&gt;;
+    });
+
+    return _shared&lt;#name#&gt;;
+}
+</code></pre>
+
+<p>单例，标准代码。</p>
+
+<h3 id="toc_3">stack.m</h3>
+
+<pre><code>NSLog(@&quot;Call Stack: %@&quot;, [NSThread callStackSymbols]);
+</code></pre>
+
+<p>这个有点意思，输出线程的调用栈？不知道是不是真么翻译。输出如下：<br/>
+<code><br/>
+Call Stack: (<br/>
+    0   Countdown                           0x00000001000a73e4 -[AppDelegate application:didFinishLaunchingWithOptions:] + 120<br/>
+    1   UIKit                               0x0000000186aeb124 &lt;redacted&gt; + 404<br/>
+    2   UIKit                               0x0000000186d027e8 &lt;redacted&gt; + 2376<br/>
+    3   UIKit                               0x0000000186d0519c &lt;redacted&gt; + 1504<br/>
+    4   UIKit                               0x0000000186d0370c &lt;redacted&gt; + 184<br/>
+    5   FrontBoardServices                  0x000000018a83d3c8 &lt;redacted&gt; + 32<br/>
+    6   CoreFoundation                      0x0000000181fb827c &lt;redacted&gt; + 20<br/>
+    7   CoreFoundation                      0x0000000181fb7384 &lt;redacted&gt; + 312<br/>
+    8   CoreFoundation                      0x0000000181fb59a8 &lt;redacted&gt; + 1756<br/>
+    9   CoreFoundation                      0x0000000181ee12d4 CFRunLoopRunSpecific + 396<br/>
+    10  UIKit                               0x0000000186ae43d0 &lt;redacted&gt; + 552<br/>
+    11  UIKit                               0x0000000186adef40 UIApplicationMain + 1488<br/>
+    12  Countdown                           0x000000010013177c main + 124<br/>
+    13  libdyld.dylib                       0x0000000194326a08 &lt;redacted&gt; + 4<br/>
+)<br/>
+</code></p>
+
+<h3 id="toc_4">strongself.m &amp;&amp; weakself.m</h3>
+
+<pre><code>__strong __typeof(&lt;#weakSelf#&gt;)strongSelf = &lt;#weakSelf#&gt;;
+__weak typeof(self)weakSelf = self;
+</code></pre>
+
+<p>这个没啥好说的，用于防治block中循环引用。</p>
+
+<h3 id="toc_5">tu.m</h3>
+
+<p>醉了<br/>
+<code><br/>
+UIControlEventTouchUpInside<br/>
+</code></p>
+
+<h3 id="toc_6">tvdel.m &amp;&amp; tvds.m</h3>
+
+<p>这两个也醉了，不过蛮实用<br/>
+```</p>
+
+<h1 id="toc_7">pragma mark - UITableViewDelegate</h1>
+
+<ul>
+<li>(void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+&lt;#statements#&gt;
+}</li>
+</ul>
+
+<h1 id="toc_8">pragma mark - UITableViewDataSource</h1>
+
+<ul>
+<li><p>(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {<br/>
+return &lt;#number#&gt;;<br/>
+}</p></li>
+<li><p>(NSInteger)tableView:(UITableView *)tableView<br/>
+numberOfRowsInSection:(NSInteger)section<br/>
+{<br/>
+return &lt;#number#&gt;;<br/>
+}</p></li>
+<li><p>(UITableViewCell *)tableView:(UITableView *)tableView<br/>
+     cellForRowAtIndexPath:(NSIndexPath *)indexPath<br/>
+{<br/>
+UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:&lt;#reuseIdentifier#&gt; forIndexPath:&lt;#indexPath#&gt;];</p>
+
+<p>[self configureCell:cell forRowAtIndexPath:indexPath];</p>
+
+<p>return cell;<br/>
+}</p></li>
+<li><p>(void)configureCell:(UITableViewCell *)cell<br/>
+forRowAtIndexPath:(NSIndexPath *)indexPath<br/>
+{<br/>
+&lt;#statements#&gt;<br/>
+}</p></li>
+</ul>
+
+<pre><code>
+###xae.m xaf.m xan.m xann.m xat.m
+断言调试宏，分别对应 
+e-Equel
+f-False 
+n-Nil 
+nn-NotNil 
+t-True
+
+###async.m
+GCD的异步等待嵌套。
+</code></pre>
+
+<p>dispatch<u>async(dispatch</u>get<u>global</u>queue(&lt;#dispatch<u>queue</u>priority_t priority#&gt;, &lt;#unsigned long flags#&gt;), <sup>void</sup> {<br/>
+    &lt;#code#&gt;</p>
+
+<pre><code>dispatch_async(dispatch_get_main_queue(), ^(void) {
+    &lt;#code#&gt;
+});
+</code></pre>
+
+<p>});<br/>
+```</p>
+
+<h3 id="toc_9">cdfetch.m</h3>
+
+<p>CoreData的fetch代码，其实官方自带的。<br/>
+```<br/>
+NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:&lt;#entityName#&gt;];<br/>
+fetchRequest.predicate = [NSPredicate predicateWithFormat:&lt;#predicateFormat#&gt;];</p>
+
+<p>NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:&lt;#key#&gt; ascending:&lt;#isAscending#&gt; selector:&lt;#selector#&gt;];<br/>
+fetchRequest.sortDescriptors = @[sortDescriptor];</p>
+
+<p>NSError *error;<br/>
+NSArray *results = [&lt;#context#&gt; executeFetchRequest:fetchRequest error:&amp;error];</p>
+
+<p>if (error) {<br/>
+    NSLog(@<q>%@</q>, error);<br/>
+}<br/>
+```</p>
+
+<p>官方版本<br/>
+```<br/>
+NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];<br/>
+NSEntityDescription *entity = [NSEntityDescription entityForName:@<q>&lt;#Entity name#&gt;</q> inManagedObjectContext:&lt;#context#&gt;];<br/>
+[fetchRequest setEntity:entity];<br/>
+// Specify criteria for filtering which objects to fetch<br/>
+NSPredicate *predicate = [NSPredicate predicateWithFormat:@<q>&lt;#format string#&gt;</q>, &lt;#arguments#&gt;];<br/>
+[fetchRequest setPredicate:predicate];<br/>
+// Specify how the fetched objects should be sorted<br/>
+NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@<q>&lt;#key#&gt;</q><br/>
+                                                              ascending:YES];<br/>
+[fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];</p>
+
+<p>NSError *error = nil;<br/>
+NSArray *fetchedObjects = [&lt;#context#&gt; executeFetchRequest:fetchRequest error:&amp;error];<br/>
+if (fetchedObjects == nil) {<br/>
+   &lt;#Error handling code#&gt;<br/>
+}<br/>
+```</p>
+
+<h3 id="toc_10">checkerror.m</h3>
+
+<p>注释说用于把OSStatus error翻译成人类能看懂的语言。<br/>
+```<br/>
+static void CheckError(OSStatus error, const char *operation) {<br/>
+    if (error == noErr) {<br/>
+      return;<br/>
+    }</p>
+
+<pre><code>char str[20];
+*(UInt32 *) (str + 1) = CFSwapInt32HostToBig(error);
+if (isprint(str[1]) &amp;&amp; isprint(str[2]) &amp;&amp; isprint(str[3]) &amp;&amp; isprint(str[4])) {
+    str[0] = str[5] = &#39;\&#39;&#39;;
+    str[6] = &#39;\0&#39;;
+} else {
+    sprintf(str, &quot;%d&quot;, (int)error);
+}
+
+fprintf(stderr, &quot;[Error] %s (%s)\n&quot;, operation, str);
+exit(1);
+</code></pre>
+
+<p>}<br/>
+```</p>
+
+<h3 id="toc_11">continuation.m</h3>
+
+<p>快速在.m文件添加匿名Category<br/>
+<code><br/>
+@interface &lt;#Class Name#&gt; ()<br/>
+&lt;#Continuation#&gt;<br/>
+@end<br/>
+</code></p>
+
+<h3 id="toc_12">cvds.m</h3>
+
+<p>尿性<br/>
+```</p>
+
+<h1 id="toc_13">pragma mark - UICollectionViewDataSource</h1>
+
+<ul>
+<li><p>(NSInteger)collectionView:(UICollectionView *)collectionView<br/>
+ numberOfItemsInSection:(NSInteger)section<br/>
+{<br/>
+return &lt;#numberOfItemsInSection#&gt;;<br/>
+}</p></li>
+<li><p>(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView<br/>
+              cellForItemAtIndexPath:(NSIndexPath *)indexPath<br/>
+{<br/>
+UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:&lt;#reuseIdentifier#&gt; forIndexPath:indexPath];</p>
+
+<p>[self configureCell:cell forItemAtIndexPath:indexPath];</p>
+
+<p>return cell;<br/>
+}</p></li>
+<li><p>(void)configureCell:(UICollectionViewCell *)cell<br/>
+forItemAtIndexPath:(NSIndexPath *)indexPath<br/>
+{<br/>
+&lt;# statements #&gt;<br/>
+}<br/>
+```</p></li>
+</ul>
+
+<h3 id="toc_14">documents.m</h3>
+
+<p>取App下Documents文件夹路径，还算实用<br/>
+<code><br/>
+NSURL *documentsDirectoryURL = [NSURL fileURLWithPath:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject]];<br/>
+</code></p>
+
+<h3 id="toc_15">frame.m</h3>
+
+<p>这个比较6。用语法糖实现，66666<br/>
+<code><br/>
+&lt;# view #&gt;.frame = ({<br/>
+    CGRect frame = &lt;# view #&gt;.frame;<br/>
+    &lt;# ... #&gt;<br/>
+    frame;<br/>
+});<br/>
+</code></p>
+
+<h3 id="toc_16">frc.m</h3>
+
+<p><code>NSFetchedResultsController</code>是个好东西。<br/>
+```</p>
+
+<p>NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:&lt;#(NSString *)#&gt;];<br/>
+fetchRequest.predicate = [NSPredicate predicateWithFormat:&lt;#(NSString *), ...#&gt;];<br/>
+fetchRequest.sortDescriptors = @[&lt;#(NSSortDescriptor *), ...#&gt;];</p>
+
+<p>NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:&lt;#(NSFetchRequest *)#&gt; managedObjectContext:&lt;#(NSManagedObjectContext *)#&gt; sectionNameKeyPath:&lt;#(NSString *)#&gt; cacheName:&lt;#(NSString *)#&gt;];<br/>
+fetchedResultsController.delegate = &lt;#(id <NSFetchedResultsControllerDelegate>)#&gt;;</p>
+
+<p>NSError *error = nil;<br/>
+if (![fetchedResultsController performFetch:&amp;error]) {<br/>
+    NSLog(@<q>Error: %@</q>, error);<br/>
+}<br/>
+```</p>
+
+<h3 id="toc_17">frcd.m</h3>
+
+<p><code>NSFetchedResultsController</code>的一堆回调</p>
+
+<h3 id="toc_18">imv.m</h3>
+
+<p>这..<br/>
+<code><br/>
+[[UIImageView alloc] initWithImage:[UIImage imageNamed:@&quot;&lt;#image name#&gt;&quot;]]<br/>
+</code></p>
+
+<h3 id="toc_19">init.m</h3>
+
+<p>顾名思义了,不过是强迫症写法<br/>
+```<br/>
+self = [super init];<br/>
+if (!self) {<br/>
+  return nil;<br/>
+}</p>
+
+<p>&lt;#initializations#&gt;</p>
+
+<p>return self;<br/>
+```</p>
+
+<h3 id="toc_20">library.m</h3>
+
+<p>Library路径<br/>
+<code><br/>
+[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) firstObject];<br/>
+</code></p>
+
+<h3 id="toc_21">lifecycle.m</h3>
+
+<p>最实用，没有之一<br/>
+```</p>
+
+<h1 id="toc_22">pragma mark - UIViewController</h1>
+
+<ul>
+<li><p>(void)viewDidLoad {<br/>
+[super viewDidLoad];<br/>
+}</p></li>
+<li><p>(void)viewWillAppear:(BOOL)animated {<br/>
+[super viewWillAppear:animated];<br/>
+}</p></li>
+<li><p>(void)viewDidAppear:(BOOL)animated {<br/>
+[super viewDidAppear:animated];<br/>
+}</p></li>
+<li><p>(void)viewWillDisappear:(BOOL)animated {<br/>
+[super viewWillDisappear:animated];<br/>
+}</p></li>
+<li><p>(void)viewDidDisappear:(BOOL)animated {<br/>
+[super viewDidDisappear:animated];<br/>
+}</p></li>
+<li><p>(void)didReceiveMemoryWarning {<br/>
+[super didReceiveMemoryWarning];<br/>
+}<br/>
+```</p></li>
+</ul>
+
+<h3 id="toc_23">mailcomp.m</h3>
+
+<p>调用系统邮件UI<br/>
+```</p>
+
+<h1 id="toc_24">import <MessageUI/MessageUI.h></h1>
+
+<ul>
+<li><p>(void)presentModalMailComposerViewController:(BOOL)animated {<br/>
+if ([MFMailComposeViewController canSendMail]) {<br/>
+    MFMailComposeViewController *composeViewController = [[MFMailComposeViewController alloc] init];<br/>
+    composeViewController.mailComposeDelegate = self;</p>
+
+<pre><code>[composeViewController setSubject:&lt;#Subject#&gt;];
+[composeViewController setMessageBody:&lt;#Body#&gt; isHTML:YES];
+[composeViewController setToRecipients:@[&lt;#Recipients#&gt;]];
+
+[self presentViewController:composeViewController animated:animated completion:nil];
+</code></pre>
+
+<p>} else {<br/>
+    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@<q>Error</q>, nil) message:NSLocalizedString(@<q>&lt;#Cannot Send Mail Message#&gt;</q>, nil) delegate:nil cancelButtonTitle:NSLocalizedString(@<q>OK</q>, nil) otherButtonTitles:nil] show];<br/>
+}<br/>
+}</p></li>
+</ul>
+
+<h1 id="toc_25">pragma mark - MFMailComposeViewControllerDelegate</h1>
+
+<ul>
+<li><p>(void)mailComposeController:(MFMailComposeViewController *)controller<br/>
+      didFinishWithResult:(MFMailComposeResult)result<br/>
+                    error:(NSError *)error<br/>
+{<br/>
+if (error) {<br/>
+    NSLog(@<q>%@</q>, error);<br/>
+}</p>
+
+<p>[self dismissViewControllerAnimated:YES completion:nil];<br/>
+}<br/>
+```</p></li>
+</ul>
+
+<h3 id="toc_26">mark.m</h3>
+
+<p>短，然并卵<br/>
+```</p>
+
+<h1 id="toc_27">pragma mark - &lt;#Section#&gt;</h1>
+
+<pre><code>跟直接输入有什么区别。
+
+###nscoding.m
+NSCoding协议实现相关方法
+</code></pre>
+
+<h1 id="toc_28">pragma mark - NSCoding</h1>
+
+<ul>
+<li><p>(instancetype)initWithCoder:(NSCoder *)decoder {<br/>
+self = [super init];<br/>
+if (!self) {<br/>
+  return nil;<br/>
+}</p>
+
+<p>&lt;# implementation #&gt;</p>
+
+<p>return self;<br/>
+}</p></li>
+<li><p>(void)encodeWithCoder:(NSCoder *)coder {<br/>
+&lt;# implementation #&gt;<br/>
+}<br/>
+```</p></li>
+</ul>
+
+<h3 id="toc_29">nsl.m</h3>
+
+<p>短，然并卵2，本地化字符串<br/>
+<code><br/>
+NSLocalizedString(@&quot;&lt;#Message#&gt;&quot;, &lt;#Comment#&gt;)<br/>
+</code></p>
+
+<h3 id="toc_30">pdel.m &amp;&amp; pds.m</h3>
+
+<p>UIPickerView的回调<br/>
+```</p>
+
+<h1 id="toc_31">pragma mark - UIPickerViewDelegate</h1>
+
+<ul>
+<li><p>(NSString *)pickerView:(UIPickerView *)pickerView<br/>
+         titleForRow:(NSInteger)row<br/>
+        forComponent:(NSInteger)component<br/>
+{<br/>
+&lt;#code#&gt;<br/>
+}</p></li>
+<li><p>(void)pickerView:(UIPickerView *)pickerView<br/>
+  didSelectRow:(NSInteger)row<br/>
+   inComponent:(NSInteger)component<br/>
+{<br/>
+&lt;#code#&gt;<br/>
+}</p></li>
+</ul>
+
+<h1 id="toc_32">pragma mark - UIPickerDataSource</h1>
+
+<ul>
+<li><p>(NSInteger)pickerView:(UIPickerView *)pickerView<br/>
+numberOfRowsInComponent:(NSInteger)component<br/>
+{<br/>
+return &lt;#number#&gt;<br/>
+}</p></li>
+<li><p>(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {<br/>
+return &lt;#number#&gt;<br/>
+}<br/>
+```</p></li>
+</ul>
+
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="14489384122494.html" 
+          title="Next Post: iOS Touch ID 简易开发教程">iOS Touch ID 简易开发教程 &raquo;</a>
+      
+      </p>
+        </div>
+      </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"zsy78191"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+          
+
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
+
+
+
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1>zsy78191</h1>
+                <div class="site-des">个人博客</div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>Categories</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="Note.html"><strong>Note</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>Recent Posts</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="14489384440686.html">Xcode-Snippets/Objective-C 学习</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14489384122494.html">iOS Touch ID 简易开发教程</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14483526069416.html">iOS项目图片管理的闲扯</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14489384799927.html">怎样降低iOS代码耦合性</a>
+			      </li>
+		     
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    
+
+
+
+  </body>
+</html>

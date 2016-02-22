@@ -1,0 +1,341 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  怎样降低iOS代码耦合性 - zsy78191
+  
+
+  </title>
+  <link href="atom.xml" rel="alternate" title="zsy78191" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        <li id="menu_item_index"><a href="index.html">HOME</a></li>
+        <li id="menu_item_archives"><a href="archives.html">Archives</a></li>
+        <li id="menu_item_about"><a href="about.html">ABOUT</a></li>
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" action="http://google.com/search" method="get">
+    <input type="hidden" name="q" value="site:" />
+    <input tabindex="1" type="search" name="q"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; zsy78191</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+       
+       <li><a href="index.html">HOME</a></li>
+    <li><a href="archives.html">Archives</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="Note.html">Note</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+ <script type="text/javascript">
+  $(function(){
+    $('#menu_item_index').addClass('is_active');
+  });
+</script>
+<div class="row">
+  <div class="large-8 medium-8 columns">
+      <div class="markdown-body article-wrap">
+       <div class="article">
+          
+          <h1>怎样降低iOS代码耦合性</h1>
+     
+        <div class="read-more clearfix">
+          <span class="date">2015/12/1</span>
+
+          <span>posted in&nbsp;</span> 
+          
+              <span class="posted-in"><a href='Note.html'>Note</a></span>
+           
+         
+          <span class="comments">
+            
+
+            
+          </span>
+
+        </div>
+      </div><!-- article -->
+
+      <div class="article-content">
+      <h1 id="toc_0">综述</h1>
+
+<p>凡是维护过中型项目的iOS工程师都应该有过类似的体验：<code>ViewController</code>代码繁重、功能复杂、维护困难，整个工程寥寥几个<code>ViewController</code>就完成了整个项目的开发。每个控制器中都囊括了所有的页面布局、委托代理、网络请求、数据库操作和核心功能，这样的代码往往问题重重，修改起来牵一发而动全身，着实令人头疼。</p>
+
+<p>为了应对这一系列的问题，苹果公司的工程师给我们提供了很多选择去更好的在项目工程中贯彻<code>MVC</code>的设计理念，例如使用从前的<code>Interface Builder</code>制作<code>xib</code>可视布局，现在已经内置到<code>xcode</code>里面，并且提供了更为强大<code>Storyboard</code>功能，来减少<code>控制器</code>中的页面样式布局代码量；再例如<code>NSFetchedResultsController</code>这样的类和<code>CoreData</code>he<code>UITableViewController</code>的完美结合，大大减少类似构架项目的代码量，并且稳定高效。</p>
+
+<p>这些技巧在<a href="http://objc.io">objc.io</a>上有一个专门的专题，推荐给大家对应中文站<a href="http://objcio.cn">objc中国</a>，感谢objc 中国项目组。</p>
+
+<h1 id="toc_1">Storyboard与代码耦合性</h1>
+
+<p>如果放在两年前去讨论iOS工程要不要使用<code>Stortboard</code>进行布局，我们可能还会犹豫一下，很多iOS程序猿内心会有一种想把一切化为代码掌控在手中的想法，选择拒绝使用<code>Storyboard</code>或者更早的<code>xib</code>。但事到如今，iPhone、iPad的屏幕尺寸越来越多，工程里为了适配不同屏幕冗余代码越来越长的时候，<code>Storyboard</code>似乎成为了我们必须同时也是苹果公司在引导我们将要实践的方向。</p>
+
+<p>从<code>iOS 6</code>中的<code>Autolayout</code>到<code>iOS 8</code>中的<code>Size Class</code>，新技术的涌现正是为了应对更复杂的布局任务。有人可能会反驳说，自动布局也可以用纯代码完成呀。你说的没错，纯代码是可以完成，但其复杂程度远远不是重写Frame这么简单了，更灵活地将<code>Storyboard</code>和代码结合，才是比较完备的解决方案。</p>
+
+<p>这里通过三个方面介绍通过使用<code>Storyboard</code>减小工程代码耦合性的途径：</p>
+
+<ul>
+<li><code>IBDesignable</code>和<code>IBInspectable</code></li>
+<li>预览<code>Storyboard Preview</code></li>
+<li><code>NSObject</code>和<code>Runtime Attributes</code></li>
+</ul>
+
+<h2 id="toc_2">IBDesignable和IBInspectable</h2>
+
+<p><code>IBDesignable</code>和<code>IBInspectable</code>的出现为<code>Storyboard</code>提供了可视化使用高度自定义控件的方法，例子中我们在制作一个双行标签控件，用来显示日期和星期，命名为<code>DateLabel</code>，使用方法如下：</p>
+
+<pre><code class="language-objc">//IB_DESIGNABLE 标记
+IB_DESIGNABLE @interface DateLabel : UIView
+
+//IBInspectable 标记
+@property (nonatomic, strong) IBInspectable NSString* dateLabelText;
+@property (nonatomic, strong) IBInspectable NSString* weekLabelText;
+
+@end
+</code></pre>
+
+<p>其中，<code>IB_DESIGNABLE</code>标记赋予我们的继承类<code>DateLabel</code>可以在界面编辑器里面实时渲染的特权。<code>IBInspectable</code>则赋予让界面编辑器可以设置或者预置<code>View</code>的参数<code>dateLabelText</code>和<code>weekLabelText</code>。具体不多介绍了，有点跑题，大家可以参见<a href="http://www.cocoachina.com/industry/20140619/8883.html">如何在iOS 8中使用Swift和Xcode 6制作精美的UI组件</a>，同样适用于<code>Objective-C</code>和<code>Swift</code>。</p>
+
+<blockquote>
+<p>引用上文介<code>IBInspectable</code>支持<code>Int</code>,<code>CGFloat</code>,<code>Double</code>,<code>String</code>,<code>Bool</code>,<code>CGPoint</code>,<code>CGSize</code>,<br/>
+<code>CGRect</code>,<code>UIColor</code>,<code>UIImage</code>等类型的变量。</p>
+</blockquote>
+
+<p>现在在<code>Github</code>上已经有一部分开源的UI控件使用了这项特性，如此一来，很多需要在代码中实现的控件自定义特性，都可以在<code>Storyboard</code>中完成，后者的优势也很明显：</p>
+
+<ol>
+<li>所见即所得</li>
+<li>剥离了<code>ViewController</code>中的定制<code>View</code>代码，减小耦合</li>
+</ol>
+
+<h2 id="toc_3">预览Storyboard Preview</h2>
+
+<p><code>Storybord</code>中提供了预览功能，可以预览其界面在各个尺寸设备上的真实显示效果。详见<a href="http://www.cocoachina.com/cms/plus/view.php?aid=8814">Xcode 6中学习Swift、CloudKit 和 Testflight</a>，搜索<code>Storyboard Preview</code>。</p>
+
+<h2 id="toc_4">NSObject和Runtime Attributes</h2>
+
+<p>大家对这个概念再熟悉不过了，但大家有没有对他作为一个没有界面的控件在<code>Storyboard</code>作用产生过疑问呢。先来看下这篇文章 <a href="http://blog.sunnyxx.com/2014/07/17/ios_0code_vc/">0代码ViewController</a>的前言。</p>
+
+<p><code>Storyboard</code>中的<code>NSObject</code>可以是<code>UITableView</code>的<code>DataSource</code>,也可以是<code>MapView</code>的<code>Delegate</code>，连线一下，就能将原本在<code>ViewController</code>中写得最多的代理方法全部移出，并且，当你需要的时候，这些现成的代理方法，可以直接移到其他的项目中使用。</p>
+
+<p><code>Runtime Attributes</code>功能则可以在<code>Storyboard</code>中给参数写好初始值，但这里如果控件没有对应的参数的话，则会出现下面的报错。</p>
+
+<blockquote>
+<p><strong>Failed to set (xxx) user defined inspected property on (xxx): [<xxx 0xXXXXXXXX> setValue:forUndefinedKey:]: this class is not key value coding-compliant for the key xxx</strong>.</p>
+</blockquote>
+
+<h2 id="toc_5">Storyboard小结</h2>
+
+<p>当你了解了<code>Storyboard</code>的基本原理，就会发现<code>Storyboard</code>是一个很好用的工具，是<code>Model-View-Controller</code>模型中<code>Controller</code>跳转逻辑和<code>View</code>初始化的实用载体，从根本上把<code>Controller</code>中的导航代码移出，把页面配置代码、触摸事件甚至协议委托方法分摊到其他实例中，各个类各司其职，整个项目的逻辑也变的更加清晰、更易维护。</p>
+
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+          <a href="14483526069416.html" 
+          title="Previous Post: iOS项目图片管理的闲扯">&laquo; iOS项目图片管理的闲扯</a>
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+      </p>
+        </div>
+      </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"zsy78191"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+          
+
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
+
+
+
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1>zsy78191</h1>
+                <div class="site-des">个人博客</div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>Categories</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="Note.html"><strong>Note</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>Recent Posts</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="14489384440686.html">Xcode-Snippets/Objective-C 学习</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14489384122494.html">iOS Touch ID 简易开发教程</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14483526069416.html">iOS项目图片管理的闲扯</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14489384799927.html">怎样降低iOS代码耦合性</a>
+			      </li>
+		     
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    
+
+
+
+  </body>
+</html>

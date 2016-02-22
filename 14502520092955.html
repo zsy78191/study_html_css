@@ -1,0 +1,432 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  Background Modes Tutorial: Getting Started - zsy78191
+  
+
+  </title>
+  <link href="atom.xml" rel="alternate" title="zsy78191" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+  <script src="asset/highlightjs/highlight.pack.js"></script>
+  <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+
+  <section class="top-bar-section">
+  <div class="row">
+      <div style="position: relative;width:100%;"><div style="position: absolute; width:100%;">
+        <ul id="main-menu" class="left">
+        <li id="menu_item_index"><a href="index.html">HOME</a></li>
+        <li id="menu_item_archives"><a href="archives.html">Archives</a></li>
+        <li id="menu_item_about"><a href="about.html">ABOUT</a></li>
+        </ul>
+
+        <ul class="right" id="search-wrap">
+          <li>
+<form target="_blank" action="http://google.com/search" method="get">
+    <input type="hidden" name="q" value="site:" />
+    <input tabindex="1" type="search" name="q"  placeholder="Search"/>
+</form>
+</li>
+          </ul>
+      </div></div>
+  </div>
+  </section>
+
+</nav>
+
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; zsy78191</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+       
+       <li><a href="index.html">HOME</a></li>
+    <li><a href="archives.html">Archives</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+
+    <li><label>Categories</label></li>
+
+        
+            <li><a href="%E5%8F%82%E8%80%83.html">参考</a></li>
+        
+            <li><a href="Note.html">Note</a></li>
+         
+
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+
+        <section id="main-content" role="main" class="scroll-container">
+ <script type="text/javascript">
+  $(function(){
+    $('#menu_item_index').addClass('is_active');
+  });
+</script>
+<div class="row">
+  <div class="large-8 medium-8 columns">
+      <div class="markdown-body article-wrap">
+       <div class="article">
+          
+          <h1>Background Modes Tutorial: Getting Started</h1>
+     
+        <div class="read-more clearfix">
+          <span class="date">2015/12/16</span>
+
+          <span>posted in&nbsp;</span> 
+          
+              <span class="posted-in"><a href='Note.html'>Note</a></span>
+           
+         
+          <span class="comments">
+            
+
+            
+          </span>
+
+        </div>
+      </div><!-- article -->
+
+      <div class="article-content">
+      <p>iOS后台模式教程 （一）</p>
+
+<p><a href="http://www.raywenderlich.com/29948/backgrounding-for-ios">原文</a></p>
+
+<h2 id="toc_0">使用场景</h2>
+
+<p>在iOS7之前的系统中，当应用被挂起，拥有连续的10分钟时间来处理之前的任务，然后才会被系统终止。</p>
+
+<p>所以，后台模式有一些特殊的使用场景。例如，更新位置，播放视频音频，和更新服务器请求。x</p>
+
+<h2 id="toc_1">开始</h2>
+
+<p>第一步设置工程中的<code>Capabilities</code>标签栏，打开<code>Background Modes</code>服务。</p>
+
+<p>出现的<code>Modes</code>选项有</p>
+
+<ul>
+<li>Audio,AirPlay and Picture in Picture 视频音频播放</li>
+<li>Location updates 位置更新</li>
+<li>Voice over IP IP电话</li>
+<li>Newsstand downloads 杂志下载</li>
+<li>External accessory communication 外部附件通信，包括App Watch</li>
+<li>Uses Bluetooth LE accessories 蓝牙LE配件</li>
+<li>Acts as a Bluetooth LE accessory 作为蓝牙LE配件</li>
+<li>Background fetch 后台抓取服务</li>
+<li>Remote notifications 远程通知</li>
+</ul>
+
+<p>这里介绍几个模式的用法。</p>
+
+<h2 id="toc_2">播放音频</h2>
+
+<p>下面这段代码加入viewDidLoad中，程序开始时会按顺序播放两个mp3文件。在勾选<code>Audio,AirPlay and Picture in Picture</code>后，挂起程序时，音乐还是会继续播放 。</p>
+
+<p>引用</p>
+
+<pre><code>#import &lt;AVFoundation/AVFoundation.h&gt;
+</code></pre>
+
+<p>参数</p>
+
+<pre><code>@property (nonatomic, strong) AVQueuePlayer *player;
+</code></pre>
+
+<p>viewDidLoad</p>
+
+<pre><code> NSError *sessionError = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:&amp;sessionError];
+    NSArray *queue = @[
+                       [AVPlayerItem playerItemWithURL:[[NSBundle mainBundle] URLForResource:@&quot;music&quot; withExtension:@&quot;mp3&quot;]],
+                        [AVPlayerItem playerItemWithURL:[[NSBundle mainBundle] URLForResource:@&quot;pop&quot; withExtension:@&quot;mp3&quot;]]];
+    
+self.player = [[AVQueuePlayer alloc] initWithItems:queue];
+self.player.actionAtItemEnd = AVPlayerActionAtItemEndAdvance;
+    
+[self.player play];
+</code></pre>
+
+<h2 id="toc_3">位置服务</h2>
+
+<p>参数</p>
+
+<pre><code>@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) NSMutableArray *locations;
+</code></pre>
+
+<p>初始化LocationManager</p>
+
+<pre><code>self.locations = [[NSMutableArray alloc] init];
+self.locationManager = [[CLLocationManager alloc] init];
+self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+self.locationManager.delegate = self;
+</code></pre>
+
+<p>启动位置更新服务</p>
+
+<pre><code>[self.locationManager startUpdatingLocation];
+</code></pre>
+
+<p>记录新位置</p>
+
+<pre><code>- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation
+{
+    // Add another annotation to the map. 
+    if (UIApplication.sharedApplication.applicationState == UIApplicationStateActive)
+    {
+         //前台运行
+    else
+    {
+        //后台运行
+        NSLog(@&quot;App is backgrounded. New location is %@&quot;, newLocation);
+    }
+}
+</code></pre>
+
+<h3 id="toc_4">代码解析</h3>
+
+<p>根据 <code>UIApplication.sharedApplication.applicationState == UIApplicationStateActive</code> 可以判断回调过程中，程序是否挂起。记住要勾选<code>Location updates</code>，当你在制作一个跑步或骑车软件时，需要用到这项功能。</p>
+
+<h2 id="toc_5">一般性有限长度任务</h2>
+
+<p>这个宽泛的功能包括上传或者下载任务等。</p>
+
+<pre><code>@property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
+</code></pre>
+
+<pre><code>self.backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+//        NSLog(@&quot;Background handler called. Not running background tasks anymore.&quot;);
+        [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
+        self.backgroundTask = UIBackgroundTaskInvalid;
+    }];
+</code></pre>
+
+<p>您也可以在任务完成的时候，主动调用<code>[[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];</code> 终止任务。<br/>
+程序会在后台运行，但并不是无限时间。</p>
+
+      </div>
+
+      <div class="row">
+        <div class="large-6 columns">
+        <p class="text-left" style="padding:15px 0px;">
+      
+          <a href="14556955527053.html" 
+          title="Previous Post: 1. 编辑地址接口，总是返回 ‘手机号填写有误哦’">&laquo; 1. 编辑地址接口，总是返回 ‘手机号填写有误哦’</a>
+      
+        </p>
+        </div>
+        <div class="large-6 columns">
+      <p class="text-right" style="padding:15px 0px;">
+      
+          <a  href="14561077487642.html" 
+          title="Next Post: HTML">HTML &raquo;</a>
+      
+      </p>
+        </div>
+      </div>
+      <div class="comments-wrap">
+        <div class="share-comments">
+          
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"zsy78191"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+          
+
+          
+        </div>
+      </div>
+    </div><!-- article-wrap -->
+  </div><!-- large 8 -->
+
+
+
+
+ <div class="large-4 medium-4 columns">
+  <div class="hide-for-small">
+    <div id="sidebar" class="sidebar">
+          <div id="site-info" class="site-info">
+            
+                <h1>zsy78191</h1>
+                <div class="site-des">个人博客</div>
+                <div class="social">
+
+
+
+
+
+
+
+
+
+
+
+  <a class="rss" href="atom.xml" title="RSS">RSS</a>
+                
+              	 </div>
+          	</div>
+              <div id="site-categories" class="side-item ">
+                <div class="side-header">
+                  <h2>Categories</h2>
+                </div>
+                <div class="side-content">
+
+      	<p class="cat-list">
+        
+            <a href="%E5%8F%82%E8%80%83.html"><strong>参考</strong></a>
+        
+            <a href="Note.html"><strong>Note</strong></a>
+         
+        </p>
+
+
+                </div>
+              </div>
+
+              <div id="site-categories" class="side-item">
+                <div class="side-header">
+                  <h2>Recent Posts</h2>
+                </div>
+                <div class="side-content">
+                <ul class="posts-list">
+	      
+		      
+			      <li class="post">
+			        <a href="14543937535743.html"></a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14531716978294.html">悦客接口需求</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14556955527053.html">1. 编辑地址接口，总是返回 ‘手机号填写有误哦’</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14502520092955.html">Background Modes Tutorial: Getting Started</a>
+			      </li>
+		     
+		  
+		      
+			      <li class="post">
+			        <a href="14561077487642.html">HTML</a>
+			      </li>
+		     
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		  
+		      
+		   
+		  		</ul>
+                </div>
+              </div>
+        </div><!-- sidebar -->
+      </div><!-- hide for small -->
+</div><!-- large 4 -->
+
+</div><!-- row -->
+
+ <div class="page-bottom clearfix">
+  <div class="row">
+   <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+
+  
+    
+
+    <script src="asset/js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+      function fixSidebarHeight(){
+        var w1 = $('.markdown-body').height();
+          var w2 = $('#sidebar').height();
+          if (w1 > w2) { $('#sidebar').height(w1); };
+      }
+      $(function(){
+        fixSidebarHeight();
+      })
+      $(window).load(function(){
+          fixSidebarHeight();
+      });
+     
+    </script>
+
+    
+
+
+
+  </body>
+</html>
