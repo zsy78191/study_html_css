@@ -449,13 +449,20 @@ body {
   line-height: 1.725;
   text-rendering: geometricPrecision;
   min-height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 }
 .content {
-  flex: 1;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
 }
 .content p {
   -moz-hyphens: auto;
@@ -512,15 +519,22 @@ body {
 }
 @media (min-width: 540px) {
   .image-wrap {
-    flex-direction: row;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
     margin-bottom: 2rem;
   }
   .image-wrap .image-block {
     margin-right: 2rem;
-    flex: 1 0 35%;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 35%;
+            flex: 1 0 35%;
   }
   .image-wrap p {
-    flex: 1 0 65%;
+    -webkit-box-flex: 1;
+        -ms-flex: 1 0 65%;
+            flex: 1 0 65%;
   }
 }
 .width {
@@ -1014,6 +1028,8 @@ body {
 }
 @media (min-width: 480px) {
   .post-list .post-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     margin-bottom: 5px;
   }
@@ -1173,6 +1189,8 @@ article .content .caption {
 }
 @media (min-width: 480px) {
   #archive .post-list .post-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     margin-left: 1rem;
     margin-bottom: 5px;
@@ -1332,13 +1350,11 @@ pre {
   padding: 10px 15px;
   padding-bottom: 0;
   line-height: 22px;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   border: 1px dotted #666;
   overflow-x: auto;
 }
 code {
-  -webkit-border-radius: 2px;
   border-radius: 2px;
   border: 1px dotted #666;
   padding: 0 5px;
@@ -1351,7 +1367,6 @@ pre code {
 .highlight {
   font-family: "Menlo", "Meslo LG", monospace;
   background: #212326;
-  -webkit-border-radius: 4px;
   border-radius: 4px;
   padding: 10px 15px;
   overflow-x: auto;
