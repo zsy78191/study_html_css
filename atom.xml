@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.orzer.club/"/>
-  <updated>2017-06-02T05:51:02.000Z</updated>
+  <updated>2017-06-02T06:41:57.000Z</updated>
   <id>http://www.orzer.club/</id>
   
   <author>
@@ -16,11 +16,25 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Reader</title>
+    <link href="http://www.orzer.club/2017/06/02/Reader/"/>
+    <id>http://www.orzer.club/2017/06/02/Reader/</id>
+    <published>2017-06-02T06:41:56.000Z</published>
+    <updated>2017-06-02T06:41:57.000Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>iNote 手帐笔记本</title>
     <link href="http://www.orzer.club/2017/06/02/iNote/"/>
     <id>http://www.orzer.club/2017/06/02/iNote/</id>
     <published>2017-06-02T05:41:50.000Z</published>
-    <updated>2017-06-02T05:51:02.000Z</updated>
+    <updated>2017-06-02T06:42:44.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="iNote-手帐笔记本"><a href="#iNote-手帐笔记本" class="headerlink" title="iNote 手帐笔记本"></a>iNote 手帐笔记本</h1><p><code>iNote</code>是我们团队开发的一款简易的，支持<code>Markdown</code>标记语言的记事本App。</p>
 <p><a href="https://itunes.apple.com/cn/app/inote-%E6%89%8B%E5%B8%90%E8%AE%B0%E4%BA%8B%E6%9C%AC/id1239682554?mt=8" target="_blank" rel="external">App Store 连接</a><br><a href="itms-apps://itunes.apple.com/app/id1239682554" target="_blank" rel="external">App Store 连接 iOS用</a></p>
@@ -34,7 +48,11 @@
     </summary>
     
     
-      <category term="iNote Orzer App" scheme="http://www.orzer.club/tags/iNote-Orzer-App/"/>
+      <category term="iNote" scheme="http://www.orzer.club/tags/iNote/"/>
+    
+      <category term="Orzer" scheme="http://www.orzer.club/tags/Orzer/"/>
+    
+      <category term="App" scheme="http://www.orzer.club/tags/App/"/>
     
   </entry>
   

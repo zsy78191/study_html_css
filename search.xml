@@ -3,6 +3,14 @@
   
     
     <entry>
+      <title><![CDATA[Reader]]></title>
+      <url>/2017/06/02/Reader/</url>
+      <content type="html"></content>
+      
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[iNote 手帐笔记本]]></title>
       <url>/2017/06/02/iNote/</url>
       <content type="html"><![CDATA[<h1 id="iNote-手帐笔记本"><a href="#iNote-手帐笔记本" class="headerlink" title="iNote 手帐笔记本"></a>iNote 手帐笔记本</h1><p><code>iNote</code>是我们团队开发的一款简易的，支持<code>Markdown</code>标记语言的记事本App。</p>
@@ -13,7 +21,11 @@
         
         <tags>
             
-            <tag> iNote Orzer App </tag>
+            <tag> iNote </tag>
+            
+            <tag> Orzer </tag>
+            
+            <tag> App </tag>
             
         </tags>
         
