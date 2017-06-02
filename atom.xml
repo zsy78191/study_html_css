@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.orzer.club/"/>
-  <updated>2017-06-02T06:41:57.000Z</updated>
+  <updated>2017-06-02T06:42:59.000Z</updated>
   <id>http://www.orzer.club/</id>
   
   <author>
@@ -16,16 +16,28 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Reader</title>
+    <title>Reader 悦读</title>
     <link href="http://www.orzer.club/2017/06/02/Reader/"/>
     <id>http://www.orzer.club/2017/06/02/Reader/</id>
     <published>2017-06-02T06:41:56.000Z</published>
-    <updated>2017-06-02T06:41:57.000Z</updated>
+    <updated>2017-06-02T06:42:59.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Reader-悦读"><a href="#Reader-悦读" class="headerlink" title="Reader 悦读"></a>Reader 悦读</h1><p><code>Reader</code>是一个简洁的RSS/Atom订阅阅读器，你值得拥有。</p>
+<p><img src="http://7u2h70.com1.z0.glb.clouddn.com/2017-06-02-f1.jpg?imageslim" alt="f1"><br><img src="http://7u2h70.com1.z0.glb.clouddn.com/2017-06-02-f2.jpg?imageslim" alt="f2"></p>
+]]></content>
     
     <summary type="html">
     
+      &lt;h1 id=&quot;Reader-悦读&quot;&gt;&lt;a href=&quot;#Reader-悦读&quot; class=&quot;headerlink&quot; title=&quot;Reader 悦读&quot;&gt;&lt;/a&gt;Reader 悦读&lt;/h1&gt;&lt;p&gt;&lt;code&gt;Reader&lt;/code&gt;是一个简洁的RSS/Atom订阅阅读器，你值得
+    
     </summary>
     
+    
+      <category term="Orzer" scheme="http://www.orzer.club/tags/Orzer/"/>
+    
+      <category term="App" scheme="http://www.orzer.club/tags/App/"/>
+    
+      <category term="Reader" scheme="http://www.orzer.club/tags/Reader/"/>
     
   </entry>
   
