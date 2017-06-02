@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.orzer.club/"/>
-  <updated>2017-05-27T05:49:42.000Z</updated>
+  <updated>2017-06-02T05:42:17.000Z</updated>
   <id>http://www.orzer.club/</id>
   
   <author>
@@ -16,60 +16,24 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>ARC模式下的循环引用引起内存泄漏</title>
-    <link href="http://www.orzer.club/2017/05/27/%E6%A8%A1%E5%BC%8F%E4%B8%8B%E7%9A%84%E5%BE%AA%E7%8E%AF%E5%BC%95%E7%94%A8%E5%BC%95%E8%B5%B7%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/"/>
-    <id>http://www.orzer.club/2017/05/27/模式下的循环引用引起内存泄漏/</id>
-    <published>2017-05-27T05:20:58.000Z</published>
-    <updated>2017-05-27T05:49:42.000Z</updated>
+    <title>iNote 手帐笔记本</title>
+    <link href="http://www.orzer.club/2017/06/02/iNote/"/>
+    <id>http://www.orzer.club/2017/06/02/iNote/</id>
+    <published>2017-06-02T05:41:50.000Z</published>
+    <updated>2017-06-02T05:42:17.000Z</updated>
     
-    <content type="html"><![CDATA[<p>自从iOS 5时代自动引用计数（Automatic Reference Counting）技术发布，Cocoa工程师们才扔下了内存管理的包袱，从此在Objective－C修行道路上的一座大山被削平。然而，即使ARC很强大，我们日常搬砖时同样是有内存泄漏风险的，今天我就跟大家聊聊这些你可能还没有注意到的坑。</p>
-<a id="more"></a>
-<h2 id="测试原理"><a href="#测试原理" class="headerlink" title="测试原理"></a>测试原理</h2><p>​我们知道ARC模式下，<code>NSObject</code>的<code>MRC</code>相关方法都不可以使用了，但<code>dealloc</code>方法如果实现了，同样还是会调用的，只是不允许在<code>dealloc</code>方法中调用<code>[super dealloc]</code>，所以我们在<code>dealloc</code>方法中加入log信息就可以跟踪到我们的实例是否释放。</p>
-<h2 id="容易忽视的引用循环"><a href="#容易忽视的引用循环" class="headerlink" title="容易忽视的引用循环"></a>容易忽视的引用循环</h2><p>​我们知道<code>引用计数</code>内存管理的设计理念，就是根据实例的计数值来决定是否释放实例内存空间。</p>
-<p>​例如我们的ViewController拥有一个block类型的property</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="keyword">void</span> (^ testBlock)(<span class="keyword">void</span>);</div></pre></td></tr></table></figure>
-<p>​我们在viewDidLoad中加入如下代码</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[<span class="keyword">self</span> setTestBlock:^&#123;</div><div class="line">    <span class="keyword">self</span>.title = <span class="string">@"测试"</span>;</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
-<p>​这个代码从表面上看没有什么问题，但编译器会给出warning，</p>
-<blockquote>
-<p>Catering ‘self’ strongly in this block is likely to lead a retain cycle</p>
-</blockquote>
-<p>​翻译过来意思是在block中使用self指针，可能会引起一个引用循环，导致self无法释放。</p>
-<h3 id="什么是引用循环（retain-cycle）"><a href="#什么是引用循环（retain-cycle）" class="headerlink" title="什么是引用循环（retain cycle）"></a>什么是引用循环（retain cycle）</h3><p>​假设我们有两个实例A和B，B是A的一个strong型的property，则B的引用计数是1，当A的需要释放的时候，A则会调用<code>[B release]</code>来释放B，B的引用计数则减为0，释放。</p>
-<p>​可如果这时候将B的一个strong型property指向A，则A与B互相为强引用，问题就来了。因为B强引用A，A的引用计数永远不会减为0，当A原本的强引用对象被释放以后，A和B成为了一个相互引用的孤岛，永远不会被释放了，这就会引起内存泄漏。</p>
-<p>​在上面的例子中，就是一种非常普遍的引用循环情况，加入如上代码的VC在dismiss或者pop以后，并不会执行dealloc方法，证明内存泄漏了。而引起泄漏的原因就是在作为self的property的block中，使用self指针导致self被block强引用，形成引用循环。</p>
-<h2 id="如何解决引用循环问题"><a href="#如何解决引用循环问题" class="headerlink" title="如何解决引用循环问题"></a>如何解决引用循环问题</h2><p>​在编译器提示上面的warning的时候一定不要忽视，正确的解决办法如下：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">__<span class="keyword">unsafe_unretained</span> Demo1ViewController * weakSelf = <span class="keyword">self</span>;</div><div class="line">[<span class="keyword">self</span> setTestBlock:^&#123;</div><div class="line">       weakSelf.title = <span class="string">@"测试"</span>;</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
-<p>​或者使用__weak也可以，原理也很简单，就是声明一个弱引用对象在block中替代self，这样在我们测试中，下面代码就能正常输出log，标志着VC被正确释放。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)dealloc</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%s"</span>,__func__);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>2016-09-07 13:17:38.879 ReactiveCocoaDemo[7473:3432323] -[Demo1ViewController dealloc]</p>
-</blockquote>
-<h2 id="其他会引起引用循环的状况"><a href="#其他会引起引用循环的状况" class="headerlink" title="其他会引起引用循环的状况"></a>其他会引起引用循环的状况</h2><h3 id="NSTimer"><a href="#NSTimer" class="headerlink" title="NSTimer"></a>NSTimer</h3><p>​<code>NSTimer</code>在VC释放前，一定要调用<code>[timer invalidate]</code>，不调用的后果就是<code>NSTimer</code>无法释放其target，如果target正好是self（VC本身），则引用循环。</p>
-<p>​这里要补充一点，引用循环不是只能有两个对象，三个四个更多都是可以的，甚至环数也不一定只有一个，所以要养成良好的代码习惯，在<code>NSTimer</code>停用前调用<code>invalidate</code>方法。</p>
-<h3 id="WKUserContentController"><a href="#WKUserContentController" class="headerlink" title="WKUserContentController"></a>WKUserContentController</h3><p>​这个类一般会在使用<code>WKWebView</code>的时候配套使用，如果你发现项目中调用了<code>addScriptMessageHandler</code>方法，就要注意了，检查有没有在VC释放前对称调用<code>removeScriptMessageHandlerForName</code>方法，如果没有则引起引用循环。</p>
-<p>​调用方法如下：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="keyword">self</span>.wkWebView.configuration.userContentController removeScriptMessageHandlerForName:<span class="string">@"qdpay"</span>];</div></pre></td></tr></table></figure>
-<p>​注意<code>WKUserContentController</code>和<code>WKWebView</code>中还有一个<code>WKWebViewConfiguration</code>。</p>
-<h2 id="引用大循环"><a href="#引用大循环" class="headerlink" title="引用大循环"></a>引用大循环</h2><p>​就像前面说的，引用循环可能是一个大循环。我遇到过一种情况，就是给<code>UITableViewCell</code>设置block属性响应事件，在block中强引用了self，导致self-&gt;tableView-&gt;cell-&gt;self形成循环。</p>
-<h2 id="改善block写法避免强引用self"><a href="#改善block写法避免强引用self" class="headerlink" title="改善block写法避免强引用self"></a>改善block写法避免强引用self</h2><p>​如果要从根本改变这种易发的错误，要从写法开始改变，开始避免。将上面的代码改写如下：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="keyword">void</span> (^ testBlock)(__kindof <span class="built_in">UIViewController</span>* sender); </div><div class="line"></div><div class="line">[<span class="keyword">self</span> setTestBlock:^(__kindof <span class="built_in">UIViewController</span> * vc) &#123;</div><div class="line">        vc.title = <span class="string">@"123"</span>;</div><div class="line"> &#125;];</div><div class="line">    </div><div class="line"> <span class="keyword">self</span>.testBlock(<span class="keyword">self</span>);</div></pre></td></tr></table></figure>
-<p>​将self作为参数传入block即可避免强引用，从逻辑角度来看，代码更健壮。</p>
-<h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>​上面列举的几个引用循环引起的内存泄漏，编译器是没有任何提示的，并且也不影响App运行，不会crash，但作为严谨的程序猿，我们不能容忍这种的小泄漏，虽然不影响大局，但积少成多终将影响系统的运行速度。</p>
+    <content type="html"><![CDATA[<h1 id="iNote-手帐笔记本"><a href="#iNote-手帐笔记本" class="headerlink" title="iNote 手帐笔记本"></a>iNote 手帐笔记本</h1><p><code>iNote</code>是我们团队开发的一款简易的，支持<code>Markdown</code>标记语言的记事本App。</p>
+<p><img src="http://7u2h70.com1.z0.glb.clouddn.com/2017-06-02-p1.jpg?imageslim" alt="p1"><br><img src="http:7u2h70.com1.z0.glb.clouddn.com/2017-06-02-p2.jpg?imageslim" alt="p2"><br><img src="http:7u2h70.com1.z0.glb.clouddn.com/2017-06-02-p3.jpg?imageslim" alt="p3"><br><img src="http:7u2h70.com1.z0.glb.clouddn.com/2017-06-02-p4.jpg?imageslim" alt="p4"><br><img src="http:7u2h70.com1.z0.glb.clouddn.com/2017-06-02-p5.jpg?imageslim" alt="p5"></p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;自从iOS 5时代自动引用计数（Automatic Reference Counting）技术发布，Cocoa工程师们才扔下了内存管理的包袱，从此在Objective－C修行道路上的一座大山被削平。然而，即使ARC很强大，我们日常搬砖时同样是有内存泄漏风险的，今天我就跟大家聊聊这些你可能还没有注意到的坑。&lt;/p&gt;
+      &lt;h1 id=&quot;iNote-手帐笔记本&quot;&gt;&lt;a href=&quot;#iNote-手帐笔记本&quot; class=&quot;headerlink&quot; title=&quot;iNote 手帐笔记本&quot;&gt;&lt;/a&gt;iNote 手帐笔记本&lt;/h1&gt;&lt;p&gt;&lt;code&gt;iNote&lt;/code&gt;是我们团队开发的一款简易的，支持
     
     </summary>
     
     
-      <category term="Objective-C" scheme="http://www.orzer.club/tags/Objective-C/"/>
-    
-      <category term="Cocoa" scheme="http://www.orzer.club/tags/Cocoa/"/>
-    
-      <category term="ARC" scheme="http://www.orzer.club/tags/ARC/"/>
+      <category term="iNote Orzer App" scheme="http://www.orzer.club/tags/iNote-Orzer-App/"/>
     
   </entry>
   
