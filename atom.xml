@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Orzer Team</title>
   
-  <subtitle>Code for fun</subtitle>
+  <subtitle>Orzer官方博客</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.orzer.club/"/>
