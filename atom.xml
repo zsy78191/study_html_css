@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.orzer.club/"/>
-  <updated>2019-03-10T21:20:49.956Z</updated>
+  <updated>2019-03-25T16:27:04.213Z</updated>
   <id>http://www.orzer.club/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>RSS Reader Prime正式上线</title>
+    <link href="http://www.orzer.club/2019/03/26/ReaderPrime/"/>
+    <id>http://www.orzer.club/2019/03/26/ReaderPrime/</id>
+    <published>2019-03-25T16:25:00.000Z</published>
+    <updated>2019-03-25T16:27:04.213Z</updated>
+    
+    <content type="html"><![CDATA[<p>终于，经过五轮内测的Reader SP版本正式上线，正式名称为RSS Reader Prime，在这里万分感谢内测中向我反馈问题和建议的各位朋友，再次感谢。</p><p><a href="https://itunes.apple.com/cn/app/rss-reader-prime/id1454638098?mt=8&amp;uo=4&amp;at=1001lsTF&amp;ct=iOS_detail_share_1454638098" target="_blank" rel="noopener">点击这里或下方图片下载</a></p><p><a href="https://itunes.apple.com/cn/app/rss-reader-prime/id1454638098?mt=8&uo=4&at=1001lsTF&ct=iOS_detail_share_1454638098" target="_blank" rel="noopener"><img src="http://rss.zhangzichuan.cn/IMG_3131.JPG"></a></p><h2 id="先说个事"><a href="#先说个事" class="headerlink" title="先说个事"></a>先说个事</h2><p>上一篇博客提到的征稿活动持续进行中，感谢已经投稿的五位朋友，欢迎大家继续投稿。</p><h2 id="从这里开始是干货，Prime细节功能说明"><a href="#从这里开始是干货，Prime细节功能说明" class="headerlink" title="从这里开始是干货，Prime细节功能说明"></a>从这里开始是干货，Prime细节功能说明</h2><a id="more"></a><h3 id="未读订阅"><a href="#未读订阅" class="headerlink" title="未读订阅"></a>未读订阅</h3><p>Reader Prime依旧贯彻「RSS阅读器」围绕「未读订阅」设计的理念，保留了「全部标记已读」和单篇文章标记已读的功能。<strong>标记已读</strong>和进文章加载完毕的已读，虽然都在已读列表，但<code>标题颜色</code>略有差异，用于区分的确没有打开过的<strong>未读订阅</strong></p><p><img src="http://rss.zhangzichuan.cn/IMG_3134.JPG" alt=""></p><h3 id="稍后阅读"><a href="#稍后阅读" class="headerlink" title="稍后阅读"></a>稍后阅读</h3><p>Prime这次增加的「稍后订阅」功能，用于归纳哪些暂时没时间看，但稍后想看，有有别于<strong>收藏</strong>的文章，在列表页通过右滑文章可以快速标记。</p><h3 id="订阅源的三个基本设置"><a href="#订阅源的三个基本设置" class="headerlink" title="订阅源的三个基本设置"></a>订阅源的三个基本设置</h3><ol><li>缓存期内更新</li></ol><p>这个功能是针对提供ttl参数的订阅源使用的，例如「知乎每日精选」的ttl为300分钟，意味着订阅源希望订阅软件每5个小时更新一次文章。打开此功能，Reader Prime就回根据订阅源的建议更新时长，选择是否更新订阅。订阅源加载时，如果支持ttl建议打开此功能，这样能减少订阅源服务器的压力。</p><ol><li>自动更新文章</li></ol><p>这里的自动更新仅对<strong>系统后台更新</strong>时是否更新源有效，开启软件手动刷新不受这个设置限制。一般像Reader的官方RSS，就不需要打开自动更新，因为更新频率很低，没必要次次更新新数据。这个开关在订阅源三日内没有新文章的情况下会在订阅时自动打开。</p><ol><li>直接阅读原文</li></ol><p>Reader Prime这次没有内置浏览器，直接选用了官方SDK的内置Safari，是因为内置Safari速度快，支持阅读模式。在订阅源不提供全文阅读的情况下，打开这个设置，订阅源会从列表页直接打开网页原文，并在原文支持<strong>阅读模式</strong>的情况下自动开启阅读模式。</p><p>这里多说两句，很多RSS工具都提供了抓原文的功能，Reader Prime暂时不提供，有两点原因。一是开发成本有限（其实是懒，或者说是菜），我尚未深入研究Reeder4使用的原文分析引擎；另一个原因是对于需要流量的订阅站点，RSS某种程度上会分流主站流量，减少广告曝光率，他们会选择提供非全文的源引流大家到主站，也是RSS技术的初衷之一（全文党不要打我），这一点上同为IT领域从业者，我表示选择理解。</p><h3 id="其余功能"><a href="#其余功能" class="headerlink" title="其余功能"></a>其余功能</h3><p>就没有特别需要介绍的了，再次感谢大家支持；接下来的1-2周，Reader Prime会持续更新修复大家提出的各种问题；再下一步Reader 2将会提上立项日程，敬请期待。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;终于，经过五轮内测的Reader SP版本正式上线，正式名称为RSS Reader Prime，在这里万分感谢内测中向我反馈问题和建议的各位朋友，再次感谢。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://itunes.apple.com/cn/app/rss-reader-prime/id1454638098?mt=8&amp;amp;uo=4&amp;amp;at=1001lsTF&amp;amp;ct=iOS_detail_share_1454638098&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;点击这里或下方图片下载&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://itunes.apple.com/cn/app/rss-reader-prime/id1454638098?mt=8&amp;uo=4&amp;at=1001lsTF&amp;ct=iOS_detail_share_1454638098&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;img src=&quot;http://rss.zhangzichuan.cn/IMG_3131.JPG&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;先说个事&quot;&gt;&lt;a href=&quot;#先说个事&quot; class=&quot;headerlink&quot; title=&quot;先说个事&quot;&gt;&lt;/a&gt;先说个事&lt;/h2&gt;&lt;p&gt;上一篇博客提到的征稿活动持续进行中，感谢已经投稿的五位朋友，欢迎大家继续投稿。&lt;/p&gt;
+&lt;h2 id=&quot;从这里开始是干货，Prime细节功能说明&quot;&gt;&lt;a href=&quot;#从这里开始是干货，Prime细节功能说明&quot; class=&quot;headerlink&quot; title=&quot;从这里开始是干货，Prime细节功能说明&quot;&gt;&lt;/a&gt;从这里开始是干货，Prime细节功能说明&lt;/h2&gt;
+    
+    </summary>
+    
+    
+      <category term="Reader" scheme="http://www.orzer.club/tags/Reader/"/>
+    
+      <category term="Orzer" scheme="http://www.orzer.club/tags/Orzer/"/>
+    
+      <category term="App" scheme="http://www.orzer.club/tags/App/"/>
+    
+  </entry>
   
   <entry>
     <title>Reader SP 第三轮内测开启</title>
