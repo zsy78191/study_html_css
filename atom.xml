@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.orzer.club/"/>
-  <updated>2019-03-25T16:29:32.430Z</updated>
+  <updated>2019-06-07T17:26:25.060Z</updated>
   <id>http://www.orzer.club/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>RSS Reader Prime 1.1.6更新说明</title>
+    <link href="http://www.orzer.club/2019/06/08/prime116/"/>
+    <id>http://www.orzer.club/2019/06/08/prime116/</id>
+    <published>2019-06-07T17:00:00.000Z</published>
+    <updated>2019-06-07T17:26:25.060Z</updated>
+    
+    <content type="html"><![CDATA[<p>从Prime版本四月初上架，转眼间两个多月过去了，今天正式版更新了1.1.6版本。再次感谢各位用户的支持，仍然特别感谢协助我修正Voiceover的乐魂大佬、协助我建立TG群的Fred大佬、免费搭建TTS环境借我使用的Manjusaka大佬对我给予的帮助。也感谢各位忠实的用户大大们孜孜不倦的向我反馈问题。</p><p>目前TF版本1.1.7仍然主要在修复已知的问题，TTS+Fever的支持开发进度在10%左右，近两个版本不会上线。</p><h2 id="1-1-6-新功能"><a href="#1-1-6-新功能" class="headerlink" title="1.1.6 新功能"></a>1.1.6 新功能</h2><p>今天主要向大家介绍一下1.1.6的新功能</p><h3 id="导出到Email"><a href="#导出到Email" class="headerlink" title="导出到Email"></a>导出到Email</h3><p>这个功能是用户反馈的实用功能，在正文导出的时候，可以选择是否携带Prime内置的样式。</p><h3 id="订阅源更改图标"><a href="#订阅源更改图标" class="headerlink" title="订阅源更改图标"></a>订阅源更改图标</h3><p>这个功能原本是给「分类」功能开发的，顺带就下放给订阅源使用了，目前内置一些图标，感谢Q群的Y提供的资源。</p><h3 id="订阅源增加了分类功能"><a href="#订阅源增加了分类功能" class="headerlink" title="订阅源增加了分类功能"></a>订阅源增加了分类功能</h3><p>这个分类功能是在Prime上架以后，收到用户反馈最多的功能，也是我设计了许久的功能，与传统RSS软件的分类有一些区别，传统软件的分类更像是子文件夹，Prime的分类则是多个订阅源合并成一个源的理念。这部分功能还会继续完善，期待大家的第一手反馈。</p><h3 id="增加了一个用于搜索的URLScheme"><a href="#增加了一个用于搜索的URLScheme" class="headerlink" title="增加了一个用于搜索的URLScheme"></a>增加了一个用于搜索的URLScheme</h3><p>这个就不多说了，纯试验性的功能，在软件内搜索一个关键词，即可生成反复搜索用的URLScheme，或者3D Touch快捷途径，这个功能不说大部分用户可能都找不到在哪里。</p><p>之所以会有这样一个其他RSS软件没有考虑过的功能，我是根据自己的实用需求设计的，更普遍的交互应该是在APP内设置“搜索历史”功能，我没有沿用这种做法。</p><h3 id="增加了iPad外接键盘的快捷键功能"><a href="#增加了iPad外接键盘的快捷键功能" class="headerlink" title="增加了iPad外接键盘的快捷键功能"></a>增加了iPad外接键盘的快捷键功能</h3><p>也非常感谢提这个建议的朋友，增加的快捷键使用长按Commannd的方式可以在对应视图中查看到快捷键。文章正文页用上下方向键可以滚动没有在快捷键列表中标明。</p><h2 id="关于-iOS-13-和-iPad-OS-和-新Mac-OS"><a href="#关于-iOS-13-和-iPad-OS-和-新Mac-OS" class="headerlink" title="关于 iOS 13 和 iPad OS 和 新Mac OS"></a>关于 iOS 13 和 iPad OS 和 新Mac OS</h2><p>Reader 2的开发将在iOS 13正式版发布后开始规划，有可能从iOS 13开始支持，有可能会用到新系统的黑暗模式等新特性。</p><p>Prime在新系统环境下可能会有一些问题，这些问题我将在iOS13正式版发布以后第一时间修复，跟尝鲜新系统的朋友说声抱歉，我的主力电脑不敢轻易升级Beta和公测版系统。</p><p>新系统上线后，我会及时将Prime适配成Mac软件发布。</p><p>最后再次感谢大家的使用。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;从Prime版本四月初上架，转眼间两个多月过去了，今天正式版更新了1.1.6版本。再次感谢各位用户的支持，仍然特别感谢协助我修正Voiceover的乐魂大佬、协助我建立TG群的Fred大佬、免费搭建TTS环境借我使用的Manjusaka大佬对我给予的帮助。也感谢各位忠实的用
+      
+    
+    </summary>
+    
+    
+      <category term="Reader" scheme="http://www.orzer.club/tags/Reader/"/>
+    
+      <category term="Orzer" scheme="http://www.orzer.club/tags/Orzer/"/>
+    
+      <category term="App" scheme="http://www.orzer.club/tags/App/"/>
+    
+  </entry>
   
   <entry>
     <title>RSS Reader Prime正式上线</title>
